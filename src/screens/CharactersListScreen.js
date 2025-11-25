@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity, StyleSheet } from "react-native";
 
+import api from "../api/api";
+
 const CharacterCard = ({ character, navigation }) => (
     <TouchableOpacity style={styles.card} 
     //onPress={() => navigation.navigate("CharacterDetail", { characterId: character.id })}

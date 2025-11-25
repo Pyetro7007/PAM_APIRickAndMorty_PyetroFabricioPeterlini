@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ApiRickAndMorty",
-    "slug": "ApiRickAndMorty",
+    "name": "APIRickAndMorty",
+    "slug": "APIRickAndMorty",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
