@@ -15,7 +15,7 @@ As tecnologias usadas foram:
 Para clonar o repositório será necessário o seguinte comando:
 
 ````
-git clone https://github.com/Pyetro7007/PAM_APIRickAndMorty_PyetroFabricioPeterlini.git](https://github.com/Pyetro7007/PAM_APIRickAndMorty_PyetroFabricioPeterlini.git
+git clone https://github.com/Pyetro7007/PAM_APIRickAndMorty_PyetroFabricioPeterlini.git
 ````
 
 Para clonar o repositório será necessário o seguinte comando:
