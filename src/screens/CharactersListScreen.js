@@ -2,28 +2,28 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import api from "../api/api";
+import Botao from "../components/Botao";
 
 const CharacterCard = ({ character, navigation }) => (
-    <TouchableOpacity style={styles.card} 
-    //onPress={() => navigation.navigate("CharacterDetail", { characterId: character.id })}
-    OnPress={() => console.log("Clicado:", character.name)}
+    <Botao style={styles.card} 
+    aoPressionar={() => navigation.navigate("CharacterDetail", { characterId: character.id })}
     >
 
     <Image
         source={{ uri: character.image }}
-        style={styles.image}
+        style={styles.imagem}
     />
     <View style={styles.infoContainer}>
-        <Text style={styles.name} numberOfLines={1}> {character.name} </Text>
-        <Text style={styles.details}>
+        <Text style={styles.nome} numberOfLines={1}> {character.name} </Text>
+        <Text style={styles.detalhes}>
             <Text style={{ fontWeight: "bold" }}> Status: </Text> {character.status}
         </Text>
 
-        <Text style={styles.details}>
+        <Text style={styles.detalhes}>
             <Text style={{ fontWeight: "bold" }}> Espécie: </Text> {character.species}
         </Text>
     </View>
-    </TouchableOpacity>
+    </Botao>
 );
 
 const CharactersListScreen = ({ navigation }) => {
@@ -32,25 +32,25 @@ const CharactersListScreen = ({ navigation }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchCharacters = async () => {
+        const BuscarCharacters = async () => {
             try {
-                const response = await api.get("/character");
+                const response = await api.get(`/character`);
 
                 setCharacters(response.data.results);
                 setLoading(false);
-            } catch (error) {
-                console.error("Erro ao buscar personagens:", error);
+            } catch (err) {
+                console.error("Erro ao buscar personagens:", err);
                 setError("Não foi possível carregar os personagens");
                 setLoading(false);
             }
         };
 
-        fetchCharacters();
+        BuscarCharacters();
     }, []);
 
     if (loading) {
         return (
-            <View style={styles.center}>
+            <View style={styles.mensagemCentro}>
                 <ActivityIndicator size="large" color="#000000"/>
                 <Text>Buscando personagens...</Text>
             </View>
@@ -59,7 +59,7 @@ const CharactersListScreen = ({ navigation }) => {
 
     if (error) {
         return (
-            <View style={styles.center}>
+            <View style={styles.mensagemCentro}>
                 <Text style={styles.errorText}> {error} </Text>
             </View>
         );
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     paddingTop: 10,
   },
-  center: {
+  mensagemCentro: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignItems: 'center',
   },
-  image: {
+  imagem: {
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -119,12 +119,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  name: {
+  nome: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
   },
-  details: {
+  detalhes: {
     fontSize: 14,
     color: '#666',
   },
