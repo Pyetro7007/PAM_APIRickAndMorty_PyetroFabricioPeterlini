@@ -56,7 +56,6 @@ const CharacterDetailScreen = ({ route }) => {
             <DetailItem label="Status" value={character.status} />
             <DetailItem label="Espécie" value={character.species} />
             <DetailItem label="Gênero" value={character.gender} />
-            <DetailItem label="Tipo" value={character.type || 'N/A'} />
 
             <View style={styles.divisao} />
 
