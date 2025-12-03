@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, Image, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator, Image, StyleSheet, Dimensions } from "react-native";
+import BotaoVoltar from "../components/BotaoVoltar";
 
 import api from "../api/api";
 
-const CharacterDetailScreen = ({ route }) => {
+const windowWidth = Dimensions.get('window').width;
+
+const CharacterDetailScreen = ({ route, navigation }) => {
     const { characterId } = route.params;
 
     const [character, setCharacter] = useState(null);
@@ -46,6 +49,14 @@ const CharacterDetailScreen = ({ route }) => {
 
     return (
     <View>
+      <View style={styles.header}>
+        <View style={styles.containerBotaoVoltar}>
+          <BotaoVoltar
+            aoPressionar={() => navigation.navigate('CharacterList')}>
+            <Text style={{ color: '#14c871', fontSize: 48 }}>{"<"}</Text>
+          </BotaoVoltar>
+        </View>
+      </View>
         <Image
             source={{ uri: character.image }}
             style={styles.imagemGrande}
@@ -89,10 +100,31 @@ const styles = StyleSheet.create({
       color: 'red',
       fontSize: 16,
     },
+    header: {
+      backgroundColor: "#dbdbdb",
+      height: windowWidth * 0.1,
+      width: windowWidth * 1,
+      position: 'absolute',
+      top: 0,
+    },
+    containerBotaoVoltar: {
+      fontSize: 30,
+      color: "#2e3e4b",
+      textAlign: 'center',
+      marginTop: 40,
+      marginLeft: 30,
+      position: 'absolute',
+
+  },
     imagemGrande: {
-      width: '100%',
-      height: 350,
+      width: '95%',
+      height: '50%',
       resizeMode: 'cover',
+      borderRadius: 30,
+      marginRight: 10,
+      marginTop: 100,
+      borderWidth: 1,
+      borderColor: '#ccc',
     },
     card: {
       backgroundColor: '#fff',

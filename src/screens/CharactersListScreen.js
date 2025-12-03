@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, ActivityIndicator, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet, Dimensions } from "react-native";
 
 import api from "../api/api";
 import Botao from "../components/Botao";
+
+const windowWidth = Dimensions.get('window').width;
 
 const CharacterCard = ({ character, navigation }) => (
     <Botao style={styles.card} 
@@ -67,6 +69,8 @@ const CharactersListScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+          <View style={styles.header}>
+          </View>
             <FlatList data={characters} keyExtractor={(item) => String(item.id)} renderItem={({ item }) => (
                 <CharacterCard character={item} navigation={navigation} />
             )}
@@ -91,6 +95,13 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
   },
+  header: {
+    backgroundColor: "#dbdbdb",
+    height: windowWidth * 0.1,
+    width: windowWidth * 1,
+    position: 'absolute',
+    top: 0,
+  },
   listContent: {
     paddingHorizontal: 10,
   },
@@ -98,7 +109,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 8,
-    padding: 10,
+    padding: 40,
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -108,8 +119,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagem: {
-    width: 60,
-    height: 60,
+    width: 100,
+    height: 100,
     borderRadius: 30,
     marginRight: 10,
     borderWidth: 1,

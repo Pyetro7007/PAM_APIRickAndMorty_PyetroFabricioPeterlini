@@ -11,8 +11,8 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="CharacterList">
-                <Stack.Screen name="CharacterList" component={CharactersListScreen} />
-                <Stack.Screen name="CharacterDetail" component={CharacterDetailScreen} />
+                <Stack.Screen name="CharacterList" component={CharactersListScreen} options={{headerShown: false}} />
+                <Stack.Screen name="CharacterDetail" component={CharacterDetailScreen} options={{headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
     );
