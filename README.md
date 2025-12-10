@@ -2,7 +2,7 @@ Rick and Morty Character List App
 
 Esse repositório compartilha um aplicativo mobile simples, desenvolvido em **JavaScript** (utilizando React Native com Expo). Ele permite que o usuário visualize uma **lista de personagens** da aclamada série "Rick and Morty" consumindo a **The Rick and Morty API**. O foco inicial é no **consumo de API** (Axios), gerenciamento de estado de *loading* e navegação (React Navigation).
 
-A base do código atende aos **Requisitos 1, 2 e 3** da atividade, focando na estruturação do projeto e na criação da Tela de Listagem (CharactersListScreen) e Tela de Detalhes (CharacterDetailScreen). Mais informações sobre a estilização e conclusão dos desafios estarão disponíveis em entregas futuras.
+A base do código atende aos **Requisitos 1, 2 e 3** da atividade, focando na estruturação do projeto e na criação da Tela de Listagem (CharactersListScreen) e Tela de Detalhes (CharacterDetailScreen), além disso com a conclusão de alguns dos desafios propostos.
 
 As tecnologias usadas foram:
 - Java Script
@@ -39,3 +39,5 @@ npx expo start --tunnel
 Após executar esse comando, aparecerá um QRcode, que deve ser lido no aplicativo Expo Go.
 
 Obs: É necessário ter instalado o Node.js no computador.
+
+Para mais informações acesse o vídeo: https://youtu.be/sBMG-SBO0lA
