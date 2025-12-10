@@ -1,4 +1,4 @@
-Rick and Morty Character List App
+# Rick and Morty Character List App
 
 Esse repositório compartilha um aplicativo mobile simples, desenvolvido em **JavaScript** (utilizando React Native com Expo). Ele permite que o usuário visualize uma **lista de personagens** da aclamada série "Rick and Morty" consumindo a **The Rick and Morty API**. O foco inicial é no **consumo de API** (Axios), gerenciamento de estado de *loading* e navegação (React Navigation).
 
