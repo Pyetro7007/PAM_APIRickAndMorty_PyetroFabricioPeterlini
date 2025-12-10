@@ -11,5 +11,7 @@ export default function BotaoVoltar({children, aoPressionar}){
 const styles = StyleSheet.create({
     botaoVoltar: {
         alignItems: 'center',
+        position: 'absolute',
+
     }
 });

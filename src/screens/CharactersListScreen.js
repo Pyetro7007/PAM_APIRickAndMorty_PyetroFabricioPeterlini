@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet, Dimensions, TextInput } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet, Dimensions, TextInput, ImageBackground } from "react-native";
 
 import api from "../api/api";
 import Botao from "../components/Botao";
 import Logo from "../../assets/logo.png";
+import Portal from "../../assets/portal.jpg";
 
 const windowWidth = Dimensions.get('window').width;
 const INITIAL_URL = '/character';
@@ -39,8 +40,13 @@ const CharactersListScreen = ({ navigation }) => {
     const [loading2, setLoading2] = useState(false);
 
     const BuscarCharacters = async (url, isLoadMore = false) => {
-      if (!isLoadMore) {
+      const isInitialPageLoad = !isLoadMore && buscaQuery === '';
+ 
+      if (isInitialPageLoad) {
         setLoading(true);
+        setError(null);
+      } else if (!isLoadMore) {
+        setLoading2(true);
         setError(null);
       } else {
         setLoading2(true);
@@ -49,14 +55,24 @@ const CharactersListScreen = ({ navigation }) => {
         try {
           const response = await api.get(url);
 
-          setCharacters(prevCharacters =>
-            isLoadMore
-            ? [...prevCharacters, ...response.data.results]
-            : response.data.results
-          );
+          setCharacters(prevCharacters => {
+            if (isLoadMore) {
+              const existingIds = new Set(prevCharacters.map(char => char.id));
+
+              const newUniqueCharacters = response.data.results.filter(
+                char => !existingIds.has(char.id)
+              );
+
+              return [...prevCharacters, ...newUniqueCharacters];
+            } else {
+              return response.data.results;
+            }
+          });
+
           const proximaUrl = response.data.info.next;
-            setProximaPaginaUrl(proximaUrl ? new URL(proximaUrl).pathname + new URL(proximaUrl).search : null);
-          } catch (err) {
+            setProximaPaginaUrl(proximaUrl || null);
+
+        } catch (err) {
             if (err.response && err.response.status === 404) {
               setCharacters([]);
               setError(`Nenhum personagem encontrado com o nome "${buscaQuery}".`);
@@ -72,7 +88,7 @@ const CharactersListScreen = ({ navigation }) => {
 
     useEffect(() => {
       const urlComFiltro = buscaQuery
-        ? `${INITIAL_URL}/?name${buscaQuery}`
+        ? `${INITIAL_URL}/?name=${buscaQuery}`
         : INITIAL_URL;
 
         BuscarCharacters(urlComFiltro, false);
@@ -102,7 +118,7 @@ const CharactersListScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <ImageBackground source={Portal} style={styles.container} resizeMode="cover" blurRadius={3}>
           <View style={styles.header}>
             <Image 
               source={Logo}
@@ -126,35 +142,38 @@ const CharactersListScreen = ({ navigation }) => {
             onEndReached={handleLoadMore}
             onEndReachedThreshold={0.5}
             ListFooterComponent={() => loading2 ? <ActivityIndicator size="large" color="#000000" style={styles.loading2}/> :  null}
-            />
-        </View>
+            />  
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
-    paddingTop: 10,
   },
-  // mensagemCentro: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  // errorText: {
-  //   color: 'red',
-  //   fontSize: 16,
-  // },
+  mensagemCentro: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'red',
+    fontSize: 16,
+  },
   header: {
     backgroundColor: "#20232a",
-    height: windowWidth * 0.25,
+    height: windowWidth * 0.3,
     width: windowWidth * 1,
     borderBottomWidth: 3,
     borderColor: '#97ce4c',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: '2.5%',
+    paddingTop: '7%',
   },
   logo: {
     width: windowWidth * 0.35,
@@ -170,7 +189,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 14,
   },
-  loadingMore: {
+  loading2: {
     paddingVertical: 20,
   },
   listContent: {
@@ -179,24 +198,19 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
     borderRadius: 8,
-    padding: 40,
+    padding: 15,
     marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    elevation: 5,
     alignItems: 'center',
   },
   imagem: {
     width: 100,
     height: 100,
-    borderRadius: 30,
+    borderRadius: 50,
     marginRight: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
   infoContainer: {
     flex: 1,
@@ -205,11 +219,11 @@ const styles = StyleSheet.create({
   nome: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#ffffff',
   },
   detalhes: {
     fontSize: 14,
-    color: '#666',
+    color: '#ffffff',
   },
 });
 

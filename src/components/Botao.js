@@ -15,15 +15,10 @@ export default function Botao({children, aoPressionar}){
 const styles = StyleSheet.create({
     botao:{
         flexDirection: 'row',
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        padding: 10,
         marginBottom: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 2,
         alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        padding: 10,
+        borderRadius: 50,
     },
 });
